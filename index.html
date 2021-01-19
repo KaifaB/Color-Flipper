@@ -1,0 +1,192 @@
+<html>
+    <head>
+        <title>Color Flipper</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script>
+
+            var randomColor = Math.floor(Math.random()*16777215).toString(16);
+            /* INIT FUNCTION */
+            window.onload = function init() {
+                $("#color").css('background-color', randomColor);
+                $("#genHex").css('background-color', randomColor);
+                $("#genSimple").css('background-color', randomColor);
+                $("#info").text("Background Color : #" + randomColor)
+                $("#hex").css('color', 'rgb(0, 185, 218)');
+                $("#typeSimple").hide();
+            };
+
+
+            /* GENERATE NEW COLOR BUTTON FUNCTIONS */
+            $(document).ready(function() { //HEX
+                $("#genHex").click(function() { 
+                    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+                $("#color").css('background-color', randomColor);
+                $(this).css('background-color', randomColor);
+                $("#genSimple").css('background-color', randomColor);
+                $("#info").text("Background Color : #" + randomColor);
+                }); 
+            });
+            
+
+            $(document).ready(function() { //RGB
+                function random_rgba() {
+                    var o = Math.round, r = Math.random, s = 255;
+                    return 'RGB(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ')';
+                }
+                $("#genSimple").click(function() { 
+                    var randomColor = random_rgba()
+                    $("#color").css('background-color', randomColor);
+                    $(this).css('background-color', randomColor);
+                    $("#genHex").css('background-color', randomColor);
+                    $("#info").text("Background Color : " + randomColor);
+                }); 
+            });
+
+
+            /* NAV TAB FUNCTIONS */
+            $(document).ready(function() { 
+                $("#simple").click(function() { //RGB
+                    $("#typeHex").hide();
+                    $("#typeSimple").show();
+                    $(this).css('color', 'rgb(0, 185, 218)');
+                    $("#hex").css('color', 'black');
+                    //$("#hex").addClass('inactive');
+
+                    
+                    var elem = $("#color").css('background-color');
+                    $("#info").text("Background Color : " + elem);
+                });
+            });
+
+            $(document).ready(function() { //HEX
+                $("#hex").click(function() {
+                    $("#typeSimple").hide();
+                    $("#typeHex").show();
+                    $(this).css('color', 'rgb(0, 185, 218)');
+                    $("#simple").css('color', 'black');
+
+                    var elem = $("#color").css('background-color');
+                    //$("#info").text("Background Color : " + elem);
+                    var a = elem.split("(")[1].split(")")[0];
+                    r = a.split(",");
+                    var b = r.map(function(x){   
+                        x = parseInt(x).toString(16);
+                        return (x.length==1) ? "0"+x : x;
+                    })
+                    b = b.join("");
+                    $("#info").text("Background Color : #" + b);
+                });
+            });
+            
+        </script>
+        <!--<link rel="stylesheet" type="text/css" href="./style.css">-->
+    </head>
+    <body>
+        <div class="nav">
+            <div class="title">
+                <li>Color Flipper</li>
+            </div>
+            <div class="option ml-auto">
+                <li id="simple">RGB</li>
+                <li id="hex" class="highlight">Hex</li>
+            </div>
+        </div>
+        <div id="color" class="whole">
+            <div class="shadow"></div>
+            <div class="segment">
+                <div id="info" class="shape"></div>
+                <div id="typeSimple">
+                    <button id="genSimple" class="shape main">NEW RGB COLOR</button>
+                </div>
+                <div id="typeHex">
+                    <button id="genHex" class="shape main">NEW HEX COLOR</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <style>
+.nav {
+    margin: 0 auto;
+    position: relative;
+    height: 10%;
+    width: 45%;
+    padding: 0 16px;
+    align-items: center;
+    font-size: 24px;
+    padding: 20px 0;
+}
+
+.title {
+    color: rgb(0, 185, 218)
+}
+
+.option {
+    right: auto;
+}
+
+.option li{
+    display: inline;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.option li:hover{
+    color: rgb(0, 185, 218)
+}
+
+.shadow{
+    overflow: hidden;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 15px;
+    top: -15px;
+    box-shadow: 0 0 39px rgba(0,0,0,0.8);
+}
+
+.whole {
+    height: 90%;
+    overflow:hidden;
+    position: relative;
+    background-color: aqua;
+    margin: auto 0;
+    
+}
+
+.segment {
+    padding: 200px 0;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.shape {
+    border-radius: 6px;
+    border-color: black;
+    height: 45px;
+}
+
+#info {
+    margin: 20px auto;
+    font-weight: bold;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    width:40%;
+    text-align: center;
+}
+
+.main{
+    width: 20%;
+    margin: auto;
+    font-weight: bold;
+    text-align: center;
+}
+
+.main:hover{
+    background-color: black !important;
+    color:white;
+}
+    </style>
+</html>
