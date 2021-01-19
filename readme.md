@@ -1,3 +1,4 @@
 Project: Color-Flipper
 
-okay last push
+The javascript and CSS are included in single HTML file for easier downloading
+due to small file/having no images
